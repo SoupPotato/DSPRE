@@ -1,0 +1,7 @@
+<Project>
+  <!-- Supplies the .NET Framework 4.8 reference assemblies through NuGet, so the
+       solution builds without the 4.8 Developer Pack installed. -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+</Project>

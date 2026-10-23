@@ -58,6 +58,7 @@ namespace DSPRE
 #if DEBUG
             AddChangelogPreviewMenuItem();
 #endif
+            AddRepositoryMenu();
             Program.SetupDatabase();
 
             EditorPanels.Initialize(this);

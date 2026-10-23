@@ -580,6 +580,7 @@
       <DependentUpon>BuildingEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="RomInfo.cs" />
+    <Compile Include="RomOffsetOverrides.cs" />
     <Compile Include="TrainerGraphicsLayout.cs" />
     <Compile Include="CommonScriptId.cs" />
     <Compile Include="ROMFiles\ScriptCommand.cs" />
@@ -684,6 +685,10 @@
     </Compile>
     <Compile Include="Main Window.Designer.cs">
       <DependentUpon>Main Window.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main Window.Repo.cs">
+      <DependentUpon>Main Window.cs</DependentUpon>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Narc.cs" />
     <Compile Include="ROMFiles\MapFile.cs" />

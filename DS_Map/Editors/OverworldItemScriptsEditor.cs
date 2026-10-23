@@ -333,7 +333,7 @@ namespace DSPRE.Editors
             if (RomInfo.gameFamily == RomInfo.GameFamilies.Plat)
             {
                 string ow9path = OverlayUtils.GetPath(9);
-                int ow9offs = 0x8E20 + 10;
+                int ow9offs = (int)RomOffsetOverrides.Get("griseousOrbScriptIdOffset", 0x8E20 + 10);
 
                 ushort currentValue;
                 using (DSUtils.EasyReader reader = new DSUtils.EasyReader(ow9path, ow9offs))

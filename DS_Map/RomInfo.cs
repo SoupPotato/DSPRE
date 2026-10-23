@@ -367,6 +367,8 @@ namespace DSPRE
             LoadGameFamily();
             LoadGameLanguage();
 
+            RomOffsetOverrides.Load(workDir, romID);
+
             SetNarcDirs();
             SetHeaderTableOffset();
             SetNullEncounterID();
@@ -392,6 +394,7 @@ namespace DSPRE
             SetMoveTextNumbers();
             SetTypesTextNumber();
             SetTrainerMessageTextNumber();
+            RomOffsetOverrides.Apply();
 
             InitScriptDBs();
 
@@ -595,6 +598,8 @@ namespace DSPRE
                     }
                     break;
             }
+
+            RomOffsetOverrides.Apply();
         }
 
         public static void SetupSpawnSettings()
@@ -694,6 +699,8 @@ namespace DSPRE
                     }
                     break;
             }
+
+            RomOffsetOverrides.Apply();
         }
 
         public static void SetPickupTableOffsets()
@@ -854,6 +861,8 @@ namespace DSPRE
                     }
                     break;
             }
+
+            RomOffsetOverrides.Apply();
         }
 
         public static void SetItemTableOffset()
@@ -942,6 +951,8 @@ namespace DSPRE
                     AppLogger.Error("SetItemTableOffset: Unsupported game");
                     throw new NotSupportedException("Game not supported");
             }
+
+            RomOffsetOverrides.Apply();
         }
 
         public static void PrepareCameraData()
@@ -979,6 +990,8 @@ namespace DSPRE
                     }
                     break;
             }
+
+            RomOffsetOverrides.Apply();
         }
 
         public static void SetOWtable()
@@ -1107,6 +1120,8 @@ namespace DSPRE
                     }
                     break;
             }
+
+            RomOffsetOverrides.Apply();
         }
 
         public static void SetConditionalMusicTableOffsetToRAMAddress()
@@ -1133,6 +1148,8 @@ namespace DSPRE
                     }
                     break;
             }
+
+            RomOffsetOverrides.Apply();
         }
 
         public static void SetBattleEffectsData()
@@ -1188,6 +1205,8 @@ namespace DSPRE
                     }
                     break;
             }
+
+            RomOffsetOverrides.Apply();
         }
 
         public static void SetEncounterMusicTableOffsetToRAMAddress()
@@ -1254,6 +1273,8 @@ namespace DSPRE
                     }
                     break;
             }
+
+            RomOffsetOverrides.Apply();
         }
 
         public static void SetMonIconsPalTableAddress()
@@ -1331,6 +1352,12 @@ namespace DSPRE
                     }
                     break;
             }
+
+            if (RomOffsetOverrides.TryGet("monIconPalTablePointerOffset", out uint palTablePointerOffset))
+            {
+                monIconPalTableAddress = BitConverter.ToUInt32(ARM9.ReadBytes(palTablePointerOffset, 4), 0);
+            }
+            RomOffsetOverrides.Apply();
         }
 
         private static void SetItemScriptFileNumber()
@@ -1933,6 +1960,11 @@ namespace DSPRE
 
         public static int GetMachineMoveOffset()
         {
+            if (RomOffsetOverrides.TryGet("machineMoveOffset", out uint overridden))
+            {
+                return (int)overridden;
+            }
+
             switch (RomInfo.gameFamily)
             {
                 case RomInfo.GameFamilies.DP:
@@ -1997,6 +2029,11 @@ namespace DSPRE
 
         public static uint GetItemTableOffset()
         {
+            if (RomOffsetOverrides.TryGet("itemTableOffset", out uint overridden))
+            {
+                return overridden;
+            }
+
             switch (RomInfo.gameFamily)
             {
                 case RomInfo.GameFamilies.DP:
@@ -2061,6 +2098,11 @@ namespace DSPRE
 
         public static int GetEggMoveTableOffset()
         {
+            if (RomOffsetOverrides.TryGet("eggMoveTableOffset", out uint overridden))
+            {
+                return (int)overridden;
+            }
+
             switch (RomInfo.gameFamily)
             {
                 case RomInfo.GameFamilies.DP:

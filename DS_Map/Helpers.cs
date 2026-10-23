@@ -705,6 +705,10 @@ namespace DSPRE
                     iconPalTableBuf = ARM9.ReadBytes(0x74408, 4);
                     break;
             }
+            if (RomOffsetOverrides.TryGet("monIconPalTablePointerOffset", out uint palTablePointerOffset))
+            {
+                iconPalTableBuf = ARM9.ReadBytes(palTablePointerOffset, 4);
+            }
 
             int iconPalTableAddress = (iconPalTableBuf[3] & 0xFF) << 24 | (iconPalTableBuf[2] & 0xFF) << 16 | (iconPalTableBuf[1] & 0xFF) << 8 | (iconPalTableBuf[0] & 0xFF) /* << 0 */;
             string iconTablePath;

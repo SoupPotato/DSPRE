@@ -165,6 +165,16 @@ namespace DSPRE
                     CheckDynamicHeadersPatchApplied();
                     break;
             }
+
+            // These patches hook code at fixed retail addresses. A ROM that needs offset overrides has its code
+            // elsewhere, so applying them would overwrite unrelated code or data.
+            if (RomOffsetOverrides.isActive)
+            {
+                DisableARM9patch("Retail\nROMs only");
+                DisableBDHCamPatch("Retail\nROMs only");
+                DisableBuildingRotationPatch("Retail\nROMs only");
+                DisableDynamicHeadersPatch("Retail\nROMs only");
+            }
         }
 
         #region Patch Disable
@@ -1017,7 +1027,7 @@ namespace DSPRE
                     if (gameFamily.Equals(GameFamilies.Plat))
                     {
                         string ow9path = OverlayUtils.GetPath(9);
-                        int ow9offs = 0x8E20 + 10;
+                        int ow9offs = (int)RomOffsetOverrides.Get("griseousOrbScriptIdOffset", 0x8E20 + 10);
 
                         int itemScriptID;
 

@@ -28,6 +28,7 @@ namespace DSPRE
         public bool automaticallyUpdateDBs { get; set; } = true;
         public bool useDecompNames { get; set; } = false;
         public bool convertLegacyText { get; set; } = true;
+        public string sourPlatinumRepoPath { get; set; } = "";
     }
 
     public static class SettingsManager
